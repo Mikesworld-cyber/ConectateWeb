@@ -5,6 +5,7 @@
 @section('content')
     {{-- Sección Hero --}}
   <section class="hero" id="inicio">
+     <canvas id="networkCanvas"></canvas>
          <div class="hero-content">
             <h1>Bienvenido a Conectate</h1>
             <p>Siempre brindando servicios de calidad y atención</p>

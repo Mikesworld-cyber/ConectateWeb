@@ -31,5 +31,6 @@
 
     {{-- Enlace a tu JavaScript personalizado --}}
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/pelotasrebotando.js') }}"></script>
 </body>
 </html>

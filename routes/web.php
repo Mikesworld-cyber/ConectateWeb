@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiClienteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
+// Muestra directamente la vista 'layouts.dashboard'
+// La ruta 'layouts.dashboard' se traduce a: resources/views/layouts/dashboard.blade.php
+
+
+Route::get('/dashboard', [ApiClienteController::class, 'index']) ->name('dashboard');
+
+
+
+
+Route::get('/d', function () {
+    return view('home');
 });
+
+Route::get('/api/get-table-data', [ApiClienteController::class, 'getTablaData'])->name('api.data');

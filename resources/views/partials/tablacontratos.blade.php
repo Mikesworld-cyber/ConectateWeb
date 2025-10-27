@@ -40,15 +40,13 @@
                                 <td><span class="badge-custom badge-active">{{ $cliente['paquete_contratado'] }}</span></td>
                                 <td>{{ $cliente['fecha_contrato'] }}</td>
                                 <td>
-                                    <button class="action-btn edit" title="Editar">
-                                        <i class="fas fa-edit"></i>
+                                    <button class="action-btn edit" title="Exportar">
+                                        <i class="bi bi-file-earmark-pdf-fill"></i>
                                     </button>
                                     <button class="action-btn" title="Ver detalles">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="action-btn delete" title="Eliminar">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                              
                                 </td>
                              </tr>
                              @empty

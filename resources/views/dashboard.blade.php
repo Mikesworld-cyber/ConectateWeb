@@ -92,35 +92,7 @@
         </div>
     </section>
 
-    <section>
-        <h2 class="h5 mb-3 fw-semibold">Accesos Rápidos</h2>
-        <div class="row g-3">
-            <div class="col-6 col-md-3">
-                <button class="btn w-100 py-3 fw-bold d-flex align-items-center justify-content-center">
-                    <span class="material-symbols-outlined me-2"></span>
-                    Ver Clientes
-                </button>
-            </div>
-            <div class="col-6 col-md-3">
-                <button class="btn btn-primary-custom w-100 py-3 fw-bold d-flex align-items-center justify-content-center">
-                    <span class="material-symbols-outlined me-2"></span>
-                    Ver Contratos
-                </button>
-            </div>
-            <div class="col-6 col-md-3">
-                <button class="btn btn-primary-custom w-100 py-3 fw-bold d-flex align-items-center justify-content-center">
-                    <span class="material-symbols-outlined me-2"></span>
-                    Ver Pagos
-                </button>
-            </div>
-            <div class="col-6 col-md-3">
-                <button class="btn btn-primary-custom w-100 py-3 fw-bold d-flex align-items-center justify-content-center">
-                    <span class="material-symbols-outlined me-2"></span>
-                    Ver Tickets
-                </button>
-            </div>
-        </div>
-    </section>
+    
 </div>
 
 
@@ -162,9 +134,9 @@
                             <select class="form-select @error('id_usuario') is-invalid @enderror" id="id_usuario" name="id_usuario" required>
                                 <option value="">Buscar por Nombre o Correo...</option>
                                 {{-- Los datos de $usuarios se pasan desde el controlador que renderiza el dashboard --}}
-                                @isset($usuarios) 
-                                    @foreach ($usuarios as $usuario)
-                                        <option value="{{ $usuario->id }}">{{ $usuario->nombre_user }} ({{ $usuario->correo }})</option>
+                                @isset($clientesmodal) 
+                                    @foreach ($clientesmodal as $cliente)
+                                        <option value="{{ $cliente['id'] }}">{{ $cliente['nombre_user'] }} ({{ $cliente['nickname'] }})</option>
                                     @endforeach
                                 @endisset
                             </select>
@@ -173,14 +145,14 @@
 
                         <div class="col-md-6 mb-4">
                             <label for="id_administrador" class="form-label fw-bold">Administrador (*)</label>
-                            <select class="form-select @error('id_administrador') is-invalid @enderror" id="id_administrador" name="id_administrador" required>
-                                @isset($administradores) 
-                                    @foreach ($administradores as $admin)
-                                        <option value="{{ $admin->id }}">{{ $admin->usuario }}</option>
-                                    @endforeach
-                                @endisset
-                            </select>
-                            @error('id_administrador') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            {{-- Usamos un campo oculto o solo mostramos el nombre --}}
+    @if (!empty($admin))
+        <input type="text" class="form-control" value="{{ $admin['nombres'] }} {{ $admin['apellidos'] }}" readonly>
+        {{-- Y si necesitas enviar el ID, usa un campo oculto: --}}
+        <input type="hidden" name="id_administrador" value="{{ $admin['id'] }}">
+    @else
+        <input type="text" class="form-control is-invalid" value="Administrador no encontrado" readonly>
+    @endif
                         </div>
                     </div>
 
@@ -191,10 +163,10 @@
                         <div class="col-md-6 mb-4">
                             <label for="id_paquete" class="form-label fw-bold">Seleccionar Paquete (*)</label>
                             <select class="form-select @error('id_paquete') is-invalid @enderror" id="id_paquete" name="id_paquete" required>
-                                @isset($paquetes)
-                                    @foreach ($paquetes as $paquete)
-                                        <option value="{{ $paquete->id }}">
-                                            {{ $paquete->nombre }} ({{ $paquete->velocidad_bajada }} - ${{ number_format($paquete->precio, 2) }})
+                                @isset($paquetesmodal)
+                                    @foreach ($paquetesmodal as $paquete)
+                                        <option value="{{ $paquete['id'] }}">
+                                            {{ $paquete['nombre'] }} ({{ $paquete['velocidad_bajada'] }} - ${{ number_format($paquete['precio'], 2) }})
                                         </option>
                                     @endforeach
                                 @endisset
@@ -220,6 +192,9 @@
 
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                             <button type="button" class="btn btn-primary" style="background-color: #007bff; border-color: #007bff;">
+                            <i class="fas fa-doc me-2"></i> Generar doc
+                        </button>
                         <button type="submit" class="btn btn-primary" style="background-color: #007bff; border-color: #007bff;">
                             <i class="fas fa-save me-2"></i> Confirmar Contrato
                         </button>

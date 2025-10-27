@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiClienteController;
+use App\Http\Controllers\ContratoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,6 @@ Route::get('/d', function () {
 });
 
 Route::get('/api/get-table-data', [ApiClienteController::class, 'getTablaData'])->name('api.data');
+
+// 1. Ruta que el formulario USA en la acción
+Route::post('/contratos', [ContratoController::class, 'store'])->name('contratos.store'); // ⬅️ ¡Esta es la ruta POST!

@@ -9,20 +9,28 @@ class ApiClienteController extends Controller
     private $apiUrl = 'http://localhost/Api-PHP/server/api.php';
     public function index(){
         $response = Http::get("{$this->apiUrl}/?action=registros");
+         
         if ($response->successful()) {
             // Decodifica la respuesta JSON
             $datosApi = $response->json();
-            
+            $clientesmodal = Http::get("{$this->apiUrl}/?action=clientes")->json()['data']['data'] ?? [];
+            $paquetesmodal = Http::get("{$this->apiUrl}/?action=registros")->json()['data']['data'] ?? [];
+            // Accedemos a ['data']['data'][0] para obtener el objeto del administrador.
+        $adminData = Http::get("{$this->apiUrl}/?action=buscaradmin&id=1")->json();
+        $admin = $adminData['data']['data'][0] ?? []; // Usamos [0] para obtener el objeto del admin.
             // Si la API devuelve los clientes dentro de una clave 'data', úsala:
             $clientes = $datosApi['data']['data'] ?? []; 
         } else {
             // Manejo de error si la API no responde
             $clientes = [];
+            $clientesmodal =[];
+            $admin = [];
+            $paquetesmodal=[];
             // Opcional: registrar error o mostrar un mensaje flash
         }
 
         // Devolver la vista y pasar los datos
-        return view('dashboard', compact('clientes'));
+        return view('dashboard', compact('clientes', 'clientesmodal', 'admin','paquetesmodal'));
     }
     // 2. Método llamado por AJAX para obtener y devolver solo el HTML de la tabla
     public function getTablaData(Request $request)

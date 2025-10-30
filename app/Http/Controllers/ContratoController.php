@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ContratoController extends Controller
 {
@@ -21,34 +22,69 @@ class ContratoController extends Controller
     // Procesa el formulario (POST)
     public function store(Request $request)
     {
+    
         // 1. VALIDACIÓN
         $request->validate([
-            'id_usuario' => 'required|exists:usuarios,id',
-            'id_administrador' => 'required|exists:administradores,id',
-            'id_paquete' => 'required|exists:paquetes_internet,id',
+            'id_usuario' => 'required|integer',
+            'id_administrador'=> 'required|integer',
+            'id_paquete' => 'required|integer',
+            'duracion' => 'required|integer|min:1',
             'fecha_cobro' => 'required|integer|min:1|max:28',
-            'duracion' => 'nullable|integer|min:1',
-            'estado' => 'required|in:activo,inactivo',
-            'clausulas' => 'nullable|string',
+            'clausulas'=>'required'
+            // El monto total inicial es solo un campo informativo del frontend; el backend lo recalcula para seguridad.
         ]);
-        
-        // 2. Lógica para guardar el Contrato
-        
-        // Necesitas ajustar la fecha de cobro al formato de tu base de datos (fecha_cobro TIMESTAMP)
-        // Usaremos el día del cobro (ej. día 5) del siguiente mes como la primera fecha de cobro.
-        $fechaCobro = now()->addMonth()->day($request->fecha_cobro);
 
-        Contrato::create([
+        // 2. RECALCULAR EL MONTO FINAL (SEGURIDAD)
+        // **IMPORTANTE:** Aquí DEBES recalcular el monto total (monto_total_inicial) 
+        // usando los IDs de paquete y promoción para asegurar que el cliente no manipuló el precio.
+        // Por ahora, asumiremos que ya tienes la lógica de recalculo aquí.
+        
+        $montoRecalculado = $this->recalculateMonto($request); 
+
+        // 3. PREPARAR DATOS PARA LA API EXTERNA
+        $datosParaApi = [
+            'action' => 'registrar_contrato', // La acción que tu API PHP espera
             'id_usuario' => $request->id_usuario,
-            'id_administrador' => $request->id_administrador,
+            'id_administrador' => $request->id_administrador, // Campo oculto en el modal
             'id_paquete' => $request->id_paquete,
-            'fecha_cobro' => $fechaCobro, // Guardamos el TIMESTAMP
-            'estado' => 'activo',
+            'id_promocion' => $request->id_promocion ?? 0,
             'duracion' => $request->duracion,
+            'fecha_cobro_dia' => $request->fecha_cobro,
             'clausulas' => $request->clausulas,
-            // id_promocion se deja nulo por simplicidad
-        ]);
+            'monto_total' => $montoRecalculado, // Usamos el monto recalculado
+            // Puedes añadir headers de autenticación si tu API lo requiere
+        ];
 
-        return redirect()->route('dashboard')->with('success', 'Contrato registrado con éxito!');
+        // 4. ENVÍO A LA API EXTERNA
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $this->apiToken,
+                'Accept' => 'application/json',
+            ])->post($this->apiUrl, $datosParaApi);
+            
+            $apiResult = $response->json();
+
+            if ($response->successful() && $apiResult['success'] === true) {
+                // Éxito: La API guardó el registro
+                return response()->json([
+                    'success' => true, 
+                    'message' => 'Contrato registrado con éxito en la API.',
+                    'contrato_id' => $apiResult['contrato_id'] ?? null // Si la API devuelve el nuevo ID
+                ]);
+            } else {
+                // Fallo de la API, pero la conexión es correcta
+                return response()->json([
+                    'success' => false, 
+                    'message' => 'Error de la API: ' . ($apiResult['message'] ?? 'Error desconocido.')
+                ], 400);
+            }
+
+        } catch (\Exception $e) {
+            // Fallo en la conexión (servidor de la API caído)
+            return response()->json([
+                'success' => false, 
+                'message' => 'Error de conexión con el servidor de la API.'
+            ], 500);
+        }
     }
 }

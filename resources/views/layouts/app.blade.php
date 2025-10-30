@@ -17,6 +17,7 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 
 </head>
 <body class="bg-dark-blue text-white"> {{-- Usa una clase para el fondo oscuro --}}
@@ -30,11 +31,15 @@
 
   
     <x-footer /> 
+{{-- Librería Chart.js (Necesita cargarse una sola vez al inicio) --}}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    {{-- Enlace a tu JavaScript personalizado --}}
+
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/pelotasrebotando.js') }}"></script>
-    
+<script src="{{ asset('js/chart.js') }}"></script>
+       
+
 </body>
 </html>

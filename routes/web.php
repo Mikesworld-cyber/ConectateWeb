@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiClienteController;
 use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\generarreporte;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +33,5 @@ Route::get('/api/get-table-data', [ApiClienteController::class, 'getTablaData'])
 
 // 1. Ruta que el formulario USA en la acción
 Route::post('/contratos', [ContratoController::class, 'store'])->name('contratos.store'); // ⬅️ ¡Esta es la ruta POST!
+
+Route::get('/generar-pdf/{id}', [generarreporte::class, 'showContrato']);

@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 // La ruta 'layouts.dashboard' se traduce a: resources/views/layouts/dashboard.blade.php
 
 
-Route::get('/dashboard', [ApiClienteController::class, 'index']) ->name('dashboard');
+Route::get('/dashboard', [ApiClienteController::class, 'index'])->name('dashboard');
 
 
 
 
 Route::get('/d', function () {
-    return view('home');
+    return view('prueba');
 });
 
 Route::get('/api/get-table-data', [ApiClienteController::class, 'getTablaData'])->name('api.data');

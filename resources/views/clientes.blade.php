@@ -1,3 +1,11 @@
+@extends('layouts.admin')
+
+@section('contenido')
+<div class="mb-4">
+    <h2 class="fs-2 fw-bold text-dark">Gestión de Clientes</h2>
+    <p class="text-secondary">Crea, modifica y monitorea los clientes existentes.</p>
+</div>
+
 <div class="content-card">
     <div class="card-header-custom">
         <h3 class="card-title">Clientes</h3>
@@ -53,3 +61,4 @@
         </table>
     </div>
 </div>
+@endsection

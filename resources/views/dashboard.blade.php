@@ -12,14 +12,14 @@
                 <div class="card kpi-card p-4 shadow-sm" data-table="clientes">
                     <i class="bi bi-people-fill fs-1 text-primary mb-2"></i>
                     <p class="text-secondary mb-1">Clientes Activos</p>
-                    <h3 class="fw-bold">1,234</h3>
+                    <h3 class="fw-bold">{{ $estadisticas['usuarios_activos'] }}</h3>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card kpi-card p-4 shadow-sm" data-table="contratos">
                     <i class="bi bi-bar-chart-line-fill fs-1 text-primary mb-2"></i>
                     <p class="text-secondary mb-1">Contratos</p>
-                    <h3 class="fw-bold">1,801</h3>
+                    <h3 class="fw-bold">{{ $estadisticas['num_contratos'] }}</h3>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-4">
@@ -49,7 +49,7 @@
 
                     <i class="bi bi-boxes fs-1 text-primary mb-2"></i>
                     <p class="text-secondary mb-1">Paquetes</p>
-                    <h3 class="fw-bold">5</h3>
+                    <h3 class="fw-bold">{{ $estadisticas['num_paquetes'] }}</h3>
                 </div>
             </div>
 
@@ -57,11 +57,11 @@
     </section>
 
     <!-- RECENT CLIENTS TABLE -->
-    <div class="content-card">
+    <!-- <div class="content-card">
         <div id="table-container">
             <div class="text-center p-5 text-muted">Cargando la tabla...</div>
         </div>
-    </div>
+    </div> -->
 
 
 

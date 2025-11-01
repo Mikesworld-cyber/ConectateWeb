@@ -19,16 +19,18 @@ use Illuminate\Support\Facades\Route;
 // La ruta 'layouts.dashboard' se traduce a: resources/views/layouts/dashboard.blade.php
 
 
-Route::get('/dashboard', [ApiClienteController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/inicio', [ApiClienteController::class, 'index'])->name('dashboard');
+
+Route::get('/dashboard/{request}', [ApiClienteController::class, 'getTablaData'])->name('contratos.index');
 
 
 
 
-Route::get('/d', function () {
-    return view('prueba');
-});
+// Route::get('/d', function () {
+//     return view('prueba');
+// });
 
-Route::get('/api/get-table-data', [ApiClienteController::class, 'getTablaData'])->name('api.data');
+// Route::get('/api/get-table-data', [ApiClienteController::class, 'getTablaData'])->name('api.data');
 
 // 1. Ruta que el formulario USA en la acción
-Route::post('/contratos', [ContratoController::class, 'store'])->name('contratos.store'); // ⬅️ ¡Esta es la ruta POST!
+// Route::post('/contratos', [ContratoController::class, 'store'])->name('contratos.store'); // ⬅️ ¡Esta es la ruta POST!

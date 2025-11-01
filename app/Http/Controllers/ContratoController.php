@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class ContratoController extends Controller
 {
     // Muestra el formulario (GET)
@@ -31,9 +32,9 @@ class ContratoController extends Controller
             'estado' => 'required|in:activo,inactivo',
             'clausulas' => 'nullable|string',
         ]);
-        
+
         // 2. Lógica para guardar el Contrato
-        
+
         // Necesitas ajustar la fecha de cobro al formato de tu base de datos (fecha_cobro TIMESTAMP)
         // Usaremos el día del cobro (ej. día 5) del siguiente mes como la primera fecha de cobro.
         $fechaCobro = now()->addMonth()->day($request->fecha_cobro);

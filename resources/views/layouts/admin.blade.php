@@ -4,10 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Stitch Design - Panel de Contratos</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Fuente Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -58,14 +60,15 @@
             color: #1193d4 !important;
         }
 
-        .btn-primary {
+
+        /* .btn-primary {
             background-color: #1193d4 !important;
             border-color: #1193d4 !important;
         }
 
         .btn-primary:hover {
             background-color: #0f85c0 !important;
-        }
+        } */
 
         table th,
         table td {

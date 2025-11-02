@@ -95,6 +95,10 @@
                 <p style="font-weight: bold;">{{ $contrato['paquete_contratado'] }}</p>
             </div>
             <div style="width: 30%; float: left;" class="data-block">
+                <label>Promoción</label>
+                <p style="font-weight: bold;">{{ $contrato['promocion'] }}</p>
+            </div>
+            <div style="width: 30%; float: left;" class="data-block">
                 <label>Duración</label>
                 <p>{{ $contrato['duracion_meses'] }} Meses</p>
             </div>
@@ -153,10 +157,6 @@
     
     <div style="clear: both;"></div> </div>
 
-<div class="highlight-box">
-    <p><strong>Administrador Responsable:</strong> {{ $contrato['administrador'] }}</p>
-    <p style="font-size: 12px; margin-top: 5px;">Este documento tiene validez legal. Guarda una copia para tus registros.</p>
-</div>
     </div>
 </body>
 </html>

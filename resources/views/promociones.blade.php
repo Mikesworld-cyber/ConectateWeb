@@ -1,6 +1,13 @@
+@extends('layouts.admin')
+@section('contenido')
+<div class="mb-4">
+    <h2 class="fs-2 fw-bold text-dark">Gestión de promociones</h2>
+    <p class="text-secondary">Crea, modifica y monitorea las promociones de tus servicio.</p>
+</div>
+
 <div class="content-card">
     <div class="card-header-custom">
-        <h3 class="card-title">Clientes</h3>
+        <h3 class="card-title">Paquetes agregados</h3>
         <div class="card-actions">
             <button class="btn-card-action">
                 <i class="fas fa-filter"></i> Filtrar
@@ -11,27 +18,25 @@
         </div>
     </div>
 
-    <!-- ✅ ÚNICO CAMBIO: añadí overflow-x:auto al div -->
-    <div class="table-responsive p-3" style="overflow-x: auto;">
+    <div class="table-responsive p-3">
         <table class="modern-table">
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Telefono</th>
-                    <th>Registro</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
+                    <th>Descuento</th>
+                    <th>Condiciones</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($clientes as $cliente)
                 <tr>
-                    <td><strong>{{ $cliente['nombre_user'] }}</strong></td>
-                    <td>{{ $cliente['correo'] }}</td>
-                    <td>{{ $cliente['telefono'] }}</td>
-                    <td>{{ $cliente['fecha_registro'] }}</td>
-                    <td><span class="badge-custom badge-active">{{ $cliente['estado_cuenta'] }}</span></td>
+                    <td><strong>{{ $cliente['nombre'] }}</strong></td>
+                    <td>{{ $cliente['fecha_inicio'] }}</td>
+                    <td>{{ $cliente['fecha_fin'] }}</td>
+                    <td><span class="badge-custom badge-active">{{ $cliente['descuento'] }}</span></td>
+                    <td>{{ $cliente['condiciones'] }}</td>
                     <td>
                         <button class="action-btn edit" title="Editar">
                             <i class="fas fa-edit"></i>
@@ -46,10 +51,12 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="text-center text-muted">No se encontraron clientes.</td>
+                    <td colspan="7" class="text-center text-muted">No se encontraron paquetes de internet disponibles.</td>
                 </tr>
                 @endforelse
+
             </tbody>
         </table>
     </div>
 </div>
+@endsection

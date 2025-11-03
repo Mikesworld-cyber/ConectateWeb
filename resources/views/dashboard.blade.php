@@ -23,25 +23,25 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-4">
-                <div class="card kpi-card p-4 shadow-sm" data-table="ingresos">
+                <div class="card kpi-card p-4 shadow-sm" data-table="pagos">
                      <i class="bi bi-piggy-bank-fill fs-1 text-primary mb-2"></i>
-                    <p class="text-secondary mb-1">Ingresos</p>
-                    <h3 class="fw-bold">$250,000</h3>
+                    <p class="text-secondary mb-1">Pagos del mes</p>
+                    <h3 class="fw-bold">$ {{ $estadisticas['total_mes_actual'] }}</h3>
                 </div>
             </div>
             <div class="col-12 cl-sm-6 col-lg-4">
-                <div class="card kpi-card p-4 shadow-sm">
+                <div class="card kpi-card p-4 shadow-sm" data-table="promociones">
                     <i class="bi bi-credit-card-fill fs-1 text-primary mb-2"></i>
-                    <p class="text-secondary mb-1">Pagos Recibidos</p>
-                    <h3 class="fw-bold">$200,000</h3>
+                    <p class="text-secondary mb-1">Promociones</p>
+                    <h3 class="fw-bold">{{ $estadisticas['num_promociones'] }}</h3>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-4">
-                <div class="card kpi-card p-4 shadow-sm">
+                <div class="card kpi-card p-4 shadow-sm" data-table="tickets">
 
                     <i class="bi bi-cone-striped fs-1 text-primary mb-2"></i>
-                    <p class="text-secondary mb-1">Configuraciones</p>
-                    <h3 class="fw-bold">$250,000</h3>
+                    <p class="text-secondary mb-1">Tickets del dia</p>
+                    <h3 class="fw-bold">{{ $estadisticas['num_tickets'] }}</h3>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-lg-4">

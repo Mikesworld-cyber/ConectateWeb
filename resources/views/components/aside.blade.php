@@ -36,11 +36,23 @@
                 <span class="material-symbols-outlined" translate="no">description</span>
                 <span>Contratos</span>
             </a>
-            <a href="{{ route('contratos.index', ['request' => 'ventas']) }}"
+            <a href="{{ route('contratos.index', ['request' => 'ganancias']) }}"
                 class="d-flex align-items-center gap-2 px-3 py-2 rounded text-decoration-none 
-            {{ request()->routeIs('contratos.index') && request('request') == 'ventas' ? 'bg-primary text-white' : 'text-secondary hover-bg' }}">
-                <span class="material-symbols-outlined" translate="no">description</span>
+            {{ request()->routeIs('contratos.index') && request('request') == 'ganancias' ? 'bg-primary text-white' : 'text-secondary hover-bg' }}">
+                <span class="material-symbols-outlined" translate="no">trending_up</span>
                 <span>Ventas</span>
+            </a>
+                 <a href="{{ route('contratos.index', ['request' => 'pagos']) }}"
+                class="d-flex align-items-center gap-2 px-3 py-2 rounded text-decoration-none 
+            {{ request()->routeIs('contratos.index') && request('request') == 'pagos' ? 'bg-primary text-white' : 'text-secondary hover-bg' }}">
+                <span class="material-symbols-outlined" translate="no">payments</span>
+                <span>Pagos</span>
+            </a>
+                       <a href="{{ route('contratos.index', ['request' => 'tickets']) }}"
+                class="d-flex align-items-center gap-2 px-3 py-2 rounded text-decoration-none 
+            {{ request()->routeIs('contratos.index') && request('request') == 'tickets' ? 'bg-primary text-white' : 'text-secondary hover-bg' }}">
+                <span class="material-symbols-outlined" translate="no">support_agent</span>
+                <span>Tickets</span>
             </a>
         </nav>
     </div>

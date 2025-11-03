@@ -30,12 +30,13 @@ class ContratoController extends Controller
             'id_usuario' => 'required|integer',
             'id_administrador'=> 'required|integer',
             'id_paquete' => 'required|integer',
-            'id_promocion'=>'nullable|integer',
+            'id_promocion'=>'nullable|integer|min:0',
             'duracion' => 'required|integer|min:1',
             'fecha_cobro' => 'required|integer|min:1|max:28',
             'clausulas'=>'nullable|string',
             'tipopago'=>'required|string',
-            'costo_instalacion'=>'required|numeric|min:0'
+            'costo_instalacion'=>'required|numeric|min:0',
+            'monto_mensual'=>'required|numeric|min:0'
             // El monto total inicial es solo un campo informativo del frontend; el backend lo recalcula para seguridad.
         ]);
 
@@ -44,7 +45,7 @@ class ContratoController extends Controller
         // usando los IDs de paquete y promoción para asegurar que el cliente no manipuló el precio.
         // Por ahora, asumiremos que ya tienes la lógica de recalculo aquí.
         
-        $montoRecalculado = $this->recalculateMonto($request); 
+       /// $montoRecalculado = $this->recalculateMonto($request); 
 
         // 3. PREPARAR DATOS PARA LA API EXTERNA
         $datosParaApi = [
@@ -56,9 +57,10 @@ class ContratoController extends Controller
             'duracion' => $request->duracion,
             'fecha_cobro_dia' => $request->fecha_cobro,
             'clausulas' => $request->clausulas,
-            'tipopago'=>$request->tipopago,
-            'monto_total' => $montoRecalculado, // Usamos el monto recalculado
-            // Puedes añadir headers de autenticación si tu API lo requiere
+            'tipopago'=> $request->tipopago,
+            'monto_instalacion' => $request->costo_instalacion, 
+            'monto_mensual'=>$request->monto_mensual
+            
         ];
 
         // 4. ENVÍO A LA API EXTERNA
@@ -67,20 +69,19 @@ class ContratoController extends Controller
             
             $apiResult = $response->json();
 
-            if ($response->successful() ) {
-                // Éxito: La API guardó el registro
-                return response()->json([
-                    'success' => true, 
-                    'message' => 'Contrato registrado con éxito en la API.',
-                    'contrato_id' => $apiResult['contrato_id'] ?? null // Si la API devuelve el nuevo ID
-                ], 200);
-            } else {
-                // Fallo de la API, pero la conexión es correcta
-                return response()->json([
-                    'success' => false, 
-                    'message' => 'Error de la API: ' . ($apiResult['message'] ?? 'Error desconocido.')
-                ], 400);
-            }
+            
+        if ($response->successful() && ($apiResult['success'] ?? false)) {
+            return response()->json([
+                'success' => true, 
+                'message' => 'Contrato registrado con éxito.',
+                'contrato_id' => $apiResult['contrato_id'] ?? null
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false, 
+                'message' => 'Error de la API: ' . ($apiResult['message'] ?? 'Error desconocido.')
+            ], 400);
+        }
 
         } catch (\Exception $e) {
      

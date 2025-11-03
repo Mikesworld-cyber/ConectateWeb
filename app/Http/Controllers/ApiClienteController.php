@@ -116,8 +116,15 @@ class ApiClienteController extends Controller
         elseif($dataType=='ingresos'){
         $viewName='partials.ganancias_chart';
         }
-           elseif($dataType=='ventas'){
-        $viewName='ventas';
+           elseif($dataType=='ganancias'){
+        $viewName='ganancias';
+        }
+        
+           elseif($dataType=='pagos'){
+        $viewName='pagos';
+        }
+                   elseif($dataType=='tickets'){
+        $viewName='tickets';
         }
         else {
             $viewName = 'partials.ganancias_chart';

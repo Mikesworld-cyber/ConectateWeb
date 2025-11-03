@@ -95,7 +95,7 @@
                 <p style="font-weight: bold;">{{ $contrato['paquete_contratado'] }}</p>
             </div>
             <div style="width: 30%; float: left;" class="data-block">
-                <label>Promoción</label>
+                <label>Mensualidad</label>
                 <p style="font-weight: bold;">{{ $contrato['promocion'] }}</p>
             </div>
             <div style="width: 30%; float: left;" class="data-block">

@@ -24,7 +24,7 @@
             </div>
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card kpi-card p-4 shadow-sm" data-table="pagos">
-                     <i class="bi bi-piggy-bank-fill fs-1 text-primary mb-2"></i>
+                    <i class="bi bi-piggy-bank-fill fs-1 text-primary mb-2"></i>
                     <p class="text-secondary mb-1">Pagos del mes</p>
                     <h3 class="fw-bold">$ {{ $estadisticas['total_mes_actual'] }}</h3>
                 </div>
@@ -62,34 +62,6 @@
             <div class="text-center p-5 text-muted">Cargando la tabla...</div>
         </div>
     </div> -->
-
-
-
-
-
-    <section class="mb-5">
-        <h2 class="h5 mb-3 fw-semibold">Progreso</h2>
-
-        <div class="card p-4 mb-3 shadow-sm">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <p class="mb-0">Pagos Recibidos</p>
-                <strong class="text-primary-custom">100%</strong>
-            </div>
-            <div class="progress" style="height: 10px;">
-                <div class="progress-bar" style="width: 100%"></div>
-            </div>
-        </div>
-
-        <div class="card p-4 shadow-sm">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <p class="mb-0">Tickets Resueltos</p>
-                <strong class="text-primary-custom">100%</strong>
-            </div>
-            <div class="progress" style="height: 10px;">
-                <div class="progress-bar" style="width: 100%"></div>
-            </div>
-        </div>
-    </section>
 
 
 </div>

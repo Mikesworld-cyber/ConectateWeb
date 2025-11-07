@@ -2,34 +2,34 @@
 
 @section('contenido')
 @php
-    $metricas_clientes = [
-        'clientes_totales' => [
-            'valor' => '1,250',
-            'descripcion' => 'Total de Cuentas Registradas',
-            'icono' => 'fas fa-users',
-            'color' => 'primary', // Color para el icono/borde
-        ],
-        'clientes_activos' => [
-            'valor' => '1,180',
-            'descripcion' => 'Cuentas con Servicio Activo',
-            'icono' => 'fas fa-wifi',
-            'color' => 'success',
-        ],
-        'clientes_nuevos_mes' => [
-            'valor' => '+42',
-            'descripcion' => 'Nuevos Clientes (Último Mes)',
-            'icono' => 'fas fa-user-plus',
-            'color' => 'info',
-        ],
-        'clientes_morosos' => [
-            'valor' => '70',
-            'descripcion' => 'Cuentas con Factura Pendiente',
-            'icono' => 'fas fa-bell',
-            'color' => 'warning',
-        ],
-    ];
-    // Datos de la tabla (usando tus nombres de variables de ejemplo)
- 
+$metricas_clientes = [
+'clientes_totales' => [
+'valor' => '1,250',
+'descripcion' => 'Total de Cuentas Registradas',
+'icono' => 'fas fa-users',
+'color' => 'primary', // Color para el icono/borde
+],
+'clientes_activos' => [
+'valor' => '1,180',
+'descripcion' => 'Cuentas con Servicio Activo',
+'icono' => 'fas fa-wifi',
+'color' => 'success',
+],
+'clientes_nuevos_mes' => [
+'valor' => '+42',
+'descripcion' => 'Nuevos Clientes (Último Mes)',
+'icono' => 'fas fa-user-plus',
+'color' => 'info',
+],
+'clientes_morosos' => [
+'valor' => '70',
+'descripcion' => 'Cuentas con Factura Pendiente',
+'icono' => 'fas fa-bell',
+'color' => 'warning',
+],
+];
+// Datos de la tabla (usando tus nombres de variables de ejemplo)
+
 @endphp
 
 <div class="mb-4">
@@ -89,12 +89,12 @@
                     <td>{{ $cliente['fecha_registro'] }}</td>
                     <td>
                         @php
-                            $badge_class = 'badge-secondary';
-                            if ($cliente['estado_cuenta'] == 'Activo') {
-                                $badge_class = 'badge-active';
-                            } elseif ($cliente['estado_cuenta'] == 'Suspendido') {
-                                $badge_class = 'badge-inactive';
-                            }
+                        $badge_class = 'badge-secondary';
+                        if ($cliente['estado_cuenta'] == 'Activo') {
+                        $badge_class = 'badge-active';
+                        } elseif ($cliente['estado_cuenta'] == 'Suspendido') {
+                        $badge_class = 'badge-inactive';
+                        }
                         @endphp
                         <span class="badge-custom {{ $badge_class }}">{{ $cliente['estado_cuenta'] }}</span>
                     </td>
@@ -113,6 +113,19 @@
                 @empty
                 <tr>
                     <td colspan="6" class="text-center text-muted">No se encontraron clientes.</td>
+                    <!-- <script>
+                        // Convierte el array PHP a un objeto JSON válido para JavaScript
+                        const clientes = @json($clientes);
+
+                        // Ahora puedes usar el objeto 'clientes' en JavaScript
+                        console.log(clientes);
+
+                        // Si solo quieres mostrar el total de clientes, por ejemplo:
+                        // alert('Tienes ' + clientes.length + ' clientes.');
+
+                        // Si realmente quieres hacer un alert con la representación textual del objeto:
+                        alert(JSON.stringify(clientes));
+                    </script> -->
                 </tr>
                 @endforelse
             </tbody>

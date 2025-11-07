@@ -2,58 +2,58 @@
 
 @section('contenido')
 @php
-    // Datos de clientes con posibles múltiples contratos
-    $clientes_activos = [
-        [
-            'id' => 101, 
-            'nombre' => 'María Fernández', 
-            'contratos' => [
-                ['id' => 'C-101-H', 'plan' => 'Plan Fibra 200 (Casa)', 'monto_deuda' => 45.99],
-                ['id' => 'C-101-N', 'plan' => 'Plan Empresarial (Negocio)', 'monto_deuda' => 89.99]
-            ]
-        ],
-        [
-            'id' => 102, 
-            'nombre' => 'Pedro Gómez', 
-            'contratos' => [
-                ['id' => 'C-102-H', 'plan' => 'Plan Básico 50 (Único)', 'monto_deuda' => 29.99]
-            ]
-        ],
-    ];
+// Datos de clientes con posibles múltiples contratos
+$clientes_activos = [
+[
+'id' => 101,
+'nombre' => 'María Fernández',
+'contratos' => [
+['id' => 'C-101-H', 'plan' => 'Plan Fibra 200 (Casa)', 'monto_deuda' => 45.99],
+['id' => 'C-101-N', 'plan' => 'Plan Empresarial (Negocio)', 'monto_deuda' => 89.99]
+]
+],
+[
+'id' => 102,
+'nombre' => 'Pedro Gómez',
+'contratos' => [
+['id' => 'C-102-H', 'plan' => 'Plan Básico 50 (Único)', 'monto_deuda' => 29.99]
+]
+],
+];
 
-    // Historial de pagos que ahora incluye el ID del contrato
-    $historial_pagos = [
-        [
-            'cliente' => 'María Fernández',
-            'contrato_id' => 'C-101-H', // Identificador clave
-            'plan' => 'Plan Fibra 200',
-            'monto' => 45.99,
-            'metodo' => 'Transferencia',
-            'fecha_pago' => '2025-10-28',
-            'periodo_cubierto' => 'Nov 2025',
-            'estado' => 'Pagado',
-        ],
-        [
-            'cliente' => 'María Fernández',
-            'contrato_id' => 'C-101-N', // Pago del segundo contrato
-            'plan' => 'Plan Empresarial',
-            'monto' => 89.99,
-            'metodo' => 'Tarjeta Crédito',
-            'fecha_pago' => '2025-10-28',
-            'periodo_cubierto' => 'Nov 2025',
-            'estado' => 'Pagado',
-        ],
-        [
-            'cliente' => 'Pedro Gómez',
-            'contrato_id' => 'C-102-H',
-            'plan' => 'Plan Básico 50',
-            'monto' => 29.99,
-            'metodo' => 'Efectivo',
-            'fecha_pago' => '2025-10-25',
-            'periodo_cubierto' => 'Nov 2025',
-            'estado' => 'Pagado',
-        ],
-    ];
+// Historial de pagos que ahora incluye el ID del contrato
+$historial_pagos = [
+[
+'cliente' => 'María Fernández',
+'contrato_id' => 'C-101-H', // Identificador clave
+'plan' => 'Plan Fibra 200',
+'monto' => 45.99,
+'metodo' => 'Transferencia',
+'fecha_pago' => '2025-10-28',
+'periodo_cubierto' => 'Nov 2025',
+'estado' => 'Pagado',
+],
+[
+'cliente' => 'María Fernández',
+'contrato_id' => 'C-101-N', // Pago del segundo contrato
+'plan' => 'Plan Empresarial',
+'monto' => 89.99,
+'metodo' => 'Tarjeta Crédito',
+'fecha_pago' => '2025-10-28',
+'periodo_cubierto' => 'Nov 2025',
+'estado' => 'Pagado',
+],
+[
+'cliente' => 'Pedro Gómez',
+'contrato_id' => 'C-102-H',
+'plan' => 'Plan Básico 50',
+'monto' => 29.99,
+'metodo' => 'Efectivo',
+'fecha_pago' => '2025-10-25',
+'periodo_cubierto' => 'Nov 2025',
+'estado' => 'Pagado',
+],
+];
 @endphp
 
 <div class="mb-4">
@@ -74,7 +74,7 @@
                     <select id="cliente_select" class="form-control form-select" onchange="loadContratos(this.value)">
                         <option value="">-- Seleccione un cliente --</option>
                         @foreach ($clientes_activos as $cliente)
-                            <option value="{{ $cliente['id'] }}">{{ $cliente['nombre'] }}</option>
+                        <option value="{{ $cliente['id'] }}">{{ $cliente['nombre'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -104,8 +104,8 @@
                     </button>
                 </div>
             </div>
-               </form>
-        </div>
+        </form>
+    </div>
 </div>
 
 
@@ -131,7 +131,8 @@
             <thead>
                 <tr>
                     <th>Cliente</th>
-                    <th>ID Contrato</th> <th>Plan</th>
+                    <th>ID Contrato</th>
+                    <th>Plan</th>
                     <th>Monto Pagado</th>
                     <th>Método</th>
                     <th>Periodo Cubierto</th>
@@ -141,17 +142,18 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($historial_pagos as $pago)
+                @forelse ($infoPagos as $pago)
                 <tr>
-                    <td><strong>{{ $pago['cliente'] }}</strong></td>
-                    <td><span class="text-monospace text-muted">{{ $pago['contrato_id'] }}</span></td> <td>{{ $pago['plan'] }}</td>
-                    <td class="fw-bold text-primary">${{ number_format($pago['monto'], 2) }}</td>
-                    <td>{{ $pago['metodo'] }}</td>
-                    <td><span class="badge bg-secondary text-white">{{ $pago['periodo_cubierto'] }}</span></td>
-                    <td>{{ $pago['fecha_pago'] }}</td>
+                    <td><strong>{{ $pago['nombre_user'] }}</strong></td>
+                    <td><span class="text-monospace text-muted">{{ $pago['id'] }}</span></td>
+                    <td>{{ $pago['nombre'] }}</td>
+                    <td class="fw-bold text-primary">${{ number_format($pago['monto_pago'], 2) }}</td>
+                    <td>{{ $pago['metodo_pago'] }}</td>
+                    <td><span class="badge bg-secondary text-white">{{ $pago['periodo'] }}</span></td>
+                    <td>{{ $pago['fecha'] }}</td>
                     <td>
                         @php
-                            $badge_class = ($pago['estado'] == 'Pagado') ? 'badge-active' : 'badge-inactive';
+                        $badge_class = ($pago['estado'] == 'Pagado') ? 'badge-active' : 'badge-inactive';
                         @endphp
                         <span class="badge-custom {{ $badge_class }}">{{ $pago['estado'] }}</span>
                     </td>

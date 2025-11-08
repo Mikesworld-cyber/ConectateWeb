@@ -29,7 +29,12 @@
                 <span class="material-symbols-outlined" translate="no">campaign</span>
                 <span>Promociones</span>
             </a>
-
+  <a href="{{ route('contratos.index', ['request' => 'calendario']) }}"
+                class="d-flex align-items-center gap-2 px-3 py-2 rounded text-decoration-none 
+            {{ request()->routeIs('contratos.index') && request('request') == 'calendario' ? 'bg-primary text-white' : 'text-secondary hover-bg' }}">
+                <span class="material-symbols-outlined" translate="no">description</span>
+                <span>Calendario</span>
+            </a>
             <a href="{{ route('contratos.index', ['request' => 'contratos']) }}"
                 class="d-flex align-items-center gap-2 px-3 py-2 rounded text-decoration-none 
             {{ request()->routeIs('contratos.index') && request('request') == 'contratos' ? 'bg-primary text-white' : 'text-secondary hover-bg' }}">

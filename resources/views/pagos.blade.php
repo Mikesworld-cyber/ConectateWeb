@@ -156,7 +156,9 @@
                         <span class="badge-custom {{ $badge_class }}">{{ $pago['estado'] }}</span>
                     </td>
                     <td>
-                        <button class="action-btn" title="Ver Comprobante">
+                        <button class="action-btn" title="Ver Comprobante"   
+                data-bs-toggle="modal" 
+                data-bs-target="#modalResumenPago">
                             <i class="fas fa-receipt"></i>
                         </button>
                         <button class="action-btn edit" title="Corregir Pago">
@@ -171,6 +173,111 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="modalResumenPago" tabindex="-1" aria-labelledby="modalResumenPagoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            @php
+                $pago_resumen = [
+                    'id_pago' => 101,
+                    'cliente' => 'Elena Ríos (ID: C-20230115)',
+                    'fecha_pago' => '2025-11-02 14:35:12',
+                    'monto_total' => 92.78,
+                    'metodo' => 'Tarjeta de Crédito (Visa ****4567)',
+                    'estado' => 'Pagado',
+                    'periodo' => '01 Nov 2025 - 30 Nov 2025',
+                    'admin_registro' => 'Sistema Automático (Stripe)',
+                    'detalles_factura' => [
+                        ['concepto' => 'Mensualidad Paquete Mega Fibra 500', 'monto' => 79.99],
+                        ['concepto' => 'Cargo por Servicio Adicional (IP Fija)', 'monto' => 5.00],
+                        ['concepto' => 'Descuento por Promoción (Nov)', 'monto' => -5.00],
+                        ['concepto' => 'Impuesto (IVA 16%)', 'monto' => 12.79],
+                    ],
+                ];
+                $estado_clase = ($pago_resumen['estado'] == 'Pagado') ? 'badge-active' : 'badge-inactive';
+            @endphp
+
+            <div class="modal-header text-white" style="background-color: #0056b3; border-bottom: 5px solid #007bff;">
+                <h5 class="modal-title fs-5 fw-bold" id="modalResumenPagoLabel">
+                    <i class="fas fa-receipt me-2"></i> Recibo de Pago #{{ $pago_resumen['id_pago'] }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body p-4">
+                
+                <h5 class="text-primary mb-3" style="color: #007bff !important;"><i class="fas fa-dollar-sign me-2"></i> 1. Resumen y Estado</h5>
+                <hr class="mb-4">
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <p class="mb-1 text-secondary small text-uppercase fw-bold">Cliente / Contrato</p>
+                        <p class="fs-6 fw-bold">{{ $pago_resumen['cliente'] }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <p class="mb-1 text-secondary small text-uppercase fw-bold">Fecha y Hora de Pago</p>
+                        <p class="fs-6 fw-bold">{{ date('d M Y, h:i A', strtotime($pago_resumen['fecha_pago'])) }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <p class="mb-1 text-secondary small text-uppercase fw-bold">Periodo Cubierto</p>
+                        <span class="badge bg-info text-dark fs-6">{{ $pago_resumen['periodo'] }}</span>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <p class="mb-1 text-secondary small text-uppercase fw-bold">Método de Pago</p>
+                        <p class="fs-6 fw-bold">{{ $pago_resumen['metodo'] }}</p>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <p class="mb-1 text-secondary small text-uppercase fw-bold">Estado</p>
+                        <span class="badge-custom {{ $estado_clase }} fs-6">{{ $pago_resumen['estado'] }}</span>
+                    </div>
+                </div>
+                
+                <h5 class="text-primary my-3" style="color: #007bff !important;"><i class="fas fa-list me-2"></i> 2. Desglose de Factura</h5>
+                <hr class="mb-4">
+                
+                <div class="border rounded p-3 mb-4 shadow-sm">
+                    <ul class="list-unstyled mb-0">
+                        @foreach ($pago_resumen['detalles_factura'] as $item)
+                        <li class="d-flex justify-content-between py-2 border-bottom {{ $item['monto'] < 0 ? 'text-danger' : 'text-dark' }}">
+                            <span class="fw-normal">{{ $item['concepto'] }}</span>
+                            <span class="fw-bold">${{ number_format(abs($item['monto']), 2) }}</span>
+                        </li>
+                        @endforeach
+                    </ul>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                        <span class="fw-bolder fs-5 text-dark">TOTAL PAGADO:</span>
+                        <span class="fs-3 fw-bolder text-success">${{ number_format($pago_resumen['monto_total'], 2) }}</span>
+                    </div>
+                </div>
+
+                <h5 class="text-primary my-3" style="color: #007bff !important;"><i class="fas fa-user-shield me-2"></i> 3. Trazabilidad</h5>
+                <hr class="mb-4">
+                <p class="mb-1 text-secondary small text-uppercase fw-bold">Registrado por:</p>
+                <p class="text-dark">{{ $pago_resumen['admin_registro'] }}</p>
+
+            </div>
+
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-arrow-left me-1"></i> Cerrar
+                </button>
+                <button type="button" class="btn btn-info" title="Generar PDF del recibo">
+                    <i class="fas fa-print me-1"></i> Imprimir Recibo
+                </button>
+            </div>
+
+        </div>
     </div>
 </div>
 @endsection

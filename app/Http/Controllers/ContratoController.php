@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 class ContratoController extends Controller
 {
       private $apiUrl = 'http://localhost/Api-PHP/server/api.php';
+      //private $apiUrl = 'http://mysqltablas.atwebpages.com/myapi/api.php';
 
     // Muestra el formulario (GET)
     public function create()
@@ -70,7 +71,7 @@ class ContratoController extends Controller
             $apiResult = $response->json();
 
             
-        if ($response->successful() && ($apiResult['success'] ?? false)) {
+        if ($response->successful() && $apiResult['success'] == true) {
             return response()->json([
                 'success' => true, 
                 'message' => 'Contrato registrado con éxito.',

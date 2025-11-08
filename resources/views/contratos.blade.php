@@ -1,6 +1,16 @@
 @extends('layouts.admin')
 
 @section('contenido')
+<label>
+    <meter
+    value="80"
+    min="0"
+    max="100"
+    low="30"
+    high="80"
+    optimum="100"
+    ></meter>
+</label>
 <div class="mb-4">
     <h2 class="fs-2 fw-bold text-dark">Gestión de Contratos</h2>
     <p class="text-secondary">Crea, modifica y monitorea los contratos de servicio.</p>

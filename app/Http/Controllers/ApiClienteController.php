@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 class ApiClienteController extends Controller
 {
     private $apiUrl = 'http://localhost/Api-PHP/server/api.php';
+    //private $apiUrl = 'http://mysqltablas.atwebpages.com/myapi/api.php';
     public function index(){
 
 
@@ -125,6 +126,9 @@ class ApiClienteController extends Controller
         }
                    elseif($dataType=='tickets'){
         $viewName='tickets';
+        }
+              elseif($dataType=='calendario'){
+        $viewName='calendario';
         }
         else {
             $viewName = 'partials.ganancias_chart';

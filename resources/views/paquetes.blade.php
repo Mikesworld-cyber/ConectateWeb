@@ -165,9 +165,9 @@
                             <label for="tipo" class="form-label fw-bold">Tipo de Servicio</label>
                             <select class="form-select" id="tipo" name="tipo" required>
                                 <option value="" selected disabled>Selecciona un tipo</option>
-                                <option value="Residencial">Residencial</option>
-                                <option value="Comercial">Comercial / PYME</option>
-                                <option value="Corporativo">Corporativo</option>
+                                <option value="fibra antena">Por Fibra optica</option>
+                                <option value="por antena">Por antena</option>
+                             
                             </select>
                         </div>
                     </div>

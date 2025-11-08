@@ -10,6 +10,7 @@ use Carbon\Carbon; // Ya incluido en Laravel
 class generarreporte extends Controller
 {
     private $apiUrl = 'http://localhost/Api-PHP/server/api.php';
+    //private $apiUrl = 'http://mysqltablas.atwebpages.com/myapi/api.php';
    public function showContrato($id)
     {
         $response = Http::get("{$this->apiUrl}?action=contrato&id={$id}");

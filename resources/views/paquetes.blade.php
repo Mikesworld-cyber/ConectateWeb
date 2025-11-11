@@ -2,32 +2,32 @@
 @section('contenido')
 
 @php
-    $metricas_paquetes = [
-        'paquetes_activos' => [
-            'valor' => '8',
-            'descripcion' => 'Planes Actualmente Ofertados',
-            'icono' => 'fas fa-box-open',
-            'color' => 'primary',
-        ],
-        'paquete_mas_vendido' => [
-            'valor' => 'Mega Fibra 500',
-            'descripcion' => 'Plan con más suscripciones',
-            'icono' => 'fas fa-award',
-            'color' => 'success',
-        ],
-        'velocidad_promedio' => [
-            'valor' => '350 Mbps',
-            'descripcion' => 'Velocidad Promedio Ofertada',
-            'icono' => 'fas fa-tachometer-alt',
-            'color' => 'info',
-        ],
-        'ingreso_potencial' => [
-            'valor' => '$1,500.00',
-            'descripcion' => 'Suma de Precios Mensuales de Planes',
-            'icono' => 'fas fa-money-bill-wave',
-            'color' => 'warning',
-        ],
-    ];
+$metricas_paquetes = [
+'paquetes_activos' => [
+'valor' => '8',
+'descripcion' => 'Planes Actualmente Ofertados',
+'icono' => 'fas fa-box-open',
+'color' => 'primary',
+],
+'paquete_mas_vendido' => [
+'valor' => 'Mega Fibra 500',
+'descripcion' => 'Plan con más suscripciones',
+'icono' => 'fas fa-award',
+'color' => 'success',
+],
+'velocidad_promedio' => [
+'valor' => '350 Mbps',
+'descripcion' => 'Velocidad Promedio Ofertada',
+'icono' => 'fas fa-tachometer-alt',
+'color' => 'info',
+],
+'ingreso_potencial' => [
+'valor' => '$1,500.00',
+'descripcion' => 'Suma de Precios Mensuales de Planes',
+'icono' => 'fas fa-money-bill-wave',
+'color' => 'warning',
+],
+];
 
 
 @endphp
@@ -59,9 +59,9 @@
     <div class="card-header-custom">
         <h3 class="card-title">Paquetes agregados</h3>
         <div class="card-actions">
-                        <button type="button" 
-                class="btn btn-primary btn-sm" 
-                data-bs-toggle="modal" 
+            <button type="button"
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal"
                 data-bs-target="#modalCrearPaquete">
                 <i class="fas fa-plus"></i> Nuevo Paquete
             </button>
@@ -121,18 +121,18 @@
 <div class="modal fade" id="modalCrearPaquete" tabindex="-1" aria-labelledby="modalCrearPaqueteLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          
-                 <div class="modal-header text-white" style="background-color: #0056b3; border-bottom: 5px solid #007bff;">
+
+            <div class="modal-header text-white" style="background-color: #0056b3; border-bottom: 5px solid #007bff;">
                 <h5 class="modal-title fs-5 fw-bold" id="modalCrearPaqueteLabel">
                     <i class="fas fa-plus-circle me-2"></i> Crear Nuevo Paquete de Internet
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            
-            <form action="#" method="POST">
+
+            <form method="POST" id="crearPaquetes">
                 @csrf
                 <div class="modal-body p-4">
-                    
+
                     <p class="text-secondary mb-4">Completa la información del nuevo plan de servicio, incluyendo velocidades y precio.</p>
 
                     <div class="row">
@@ -193,7 +193,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         <i class="fas fa-times me-1"></i> Cancelar
                     </button>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" id="btnpaquete">
                         <i class="fas fa-save me-1"></i> Guardar Paquete
                     </button>
                 </div>

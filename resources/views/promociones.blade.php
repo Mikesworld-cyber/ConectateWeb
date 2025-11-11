@@ -27,6 +27,7 @@
                     <th>Fecha fin</th>
                     <th>Descuento</th>
                     <th>Condiciones</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>

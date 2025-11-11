@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard/inicio', [ApiClienteController::class, 'index'])->name('dashboard');
 
+// Ruta dinámica para peticiones AJAX u otras (manténla al final para no sobreescribir rutas específicas)
 Route::get('/dashboard/{request}', [ApiClienteController::class, 'getTablaData'])->name('contratos.index');
 
 

@@ -152,6 +152,19 @@
 
             <div class="modal-body p-4">
 
+       <div class="profile-picture">
+      <h1 class="upload-icon">
+        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+      </h1>
+      <input
+        class="file-uploader"
+        type="file"
+        onchange="upload()"
+        accept="image/*"
+      />
+       </div>
+
+
                 <form method="POST" id="formRegistroContrato" action="{{ route('contratos.store') }}">
                     @csrf
 

@@ -9,6 +9,12 @@
     <div class="card-header-custom">
         <h3 class="card-title">Paquetes agregados</h3>
         <div class="card-actions">
+                        <button type="button"
+                class="btn btn-primary btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#modalCrearPromocion">
+                <i class="fas fa-plus"></i> Nueva Promocion
+            </button>
             <button class="btn-card-action">
                 <i class="fas fa-filter"></i> Filtrar
             </button>
@@ -58,6 +64,43 @@
 
             </tbody>
         </table>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modalCrearPromocion" tabindex="-1" aria-labelledby="modalCrearPromocionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header text-white" style="background-color: #0056b3; border-bottom: 5px solid #007bff;">
+                <h5 class="modal-title fs-5 fw-bold" id="modalCrearPaqueteLabel">
+                    <i class="fas fa-plus-circle me-2"></i> Procion-images
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+       <div class="profile-picture">
+      <h1 class="upload-icon">
+        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+      </h1>
+      <input
+        class="file-uploader"
+        type="file"
+        onchange="upload()"
+        accept="image/*"
+      />
+       </div>
+
+<form action="{{ route('drive.upload') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <input type="file" name="image" required>
+    <button type="submit">Subir a Google Drive</button>
+</form>
+
+
+
+        </div>
     </div>
 </div>
 @endsection

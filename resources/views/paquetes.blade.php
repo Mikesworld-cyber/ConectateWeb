@@ -81,9 +81,9 @@ $metricas_paquetes = [
                     <th>precio</th>
                     <th>tipo</th>
                     <th>detalles</th>
-                    <th>Estado</th>
                     <th>velocidad_subida</th>
                     <th>Acciones</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,7 +93,6 @@ $metricas_paquetes = [
                     <td>{{ $cliente['precio'] }}</td>
                     <td>{{ $cliente['tipo'] }}</td>
                     <td>{{ $cliente['detalles'] }}</td>
-                    <td><span class="badge-custom badge-active">Activo</span></td>
                     <td>{{ $cliente['velocidad_subida'] }}</td>
                     <td>
                         <button class="action-btn edit" title="Editar">
@@ -102,10 +101,27 @@ $metricas_paquetes = [
                         <button class="action-btn" title="Ver detalles">
                             <i class="fas fa-eye"></i>
                         </button>
-                        <button class="action-btn delete" title="Eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
+ 
                     </td>
+               <td class="text-center"> 
+    @if ($cliente['estado'] == 'activo')
+        {{-- Botón Activo (Verde) --}}
+        <button id="estado-btn-{{ $cliente['id'] }}" 
+                class="action-btn status-btn active-status" 
+                title="Estado: Activo. Clic para desactivar" 
+                onclick="cambiarEstadoCliente({{ $cliente['id'] }}, '{{ $cliente['estado'] }}')">
+            <i class="fas fa-circle" style="color: green;"></i>
+        </button>
+    @else
+        {{-- Botón Inactivo (Rojo) --}}
+        <button id="estado-btn-{{ $cliente['id'] }}" 
+                class="action-btn status-btn inactive-status" 
+                title="Estado: Inactivo. Clic para activar" 
+                onclick="cambiarEstadoCliente({{ $cliente['id'] }}, '{{ $cliente['estado'] }}')">
+            <i class="fas fa-circle" style="color: red;"></i>
+        </button>
+    @endif
+</td>
                 </tr>
                 @empty
                 <tr>
@@ -117,9 +133,8 @@ $metricas_paquetes = [
         </table>
     </div>
 </div>
-
 <div class="modal fade" id="modalCrearPaquete" tabindex="-1" aria-labelledby="modalCrearPaqueteLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
             <div class="modal-header text-white" style="background-color: #0056b3; border-bottom: 5px solid #007bff;">
@@ -129,12 +144,47 @@ $metricas_paquetes = [
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form method="POST" id="crearPaquetes">
-                @csrf
-                <div class="modal-body p-4">
+            <div class="modal-body p-4">
+                
+                <h5 class="text-primary mb-3" style="color: #007bff !important;"><i class="fab fa-google-drive me-2"></i> 1. Imagen del Paquete (Google Drive)</h5>
+                <hr class="mb-4">
 
-                    <p class="text-secondary mb-4">Completa la información del nuevo plan de servicio, incluyendo velocidades y precio.</p>
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <a href="{{ route('google.auth') }}" class="btn btn-outline-primary btn-sm mb-3">
+                            <i class="fas fa-link me-1"></i> Conectar con Google Drive
+                        </a>
 
+                        <form id="uploadForm" action="{{ route('drive.upload') }}" method="POST" enctype="multipart/form-data" class="border p-3 rounded shadow-sm">
+                            <p class="text-secondary mb-3">Sube la imagen de promoción del paquete de internet.</p>
+                            @csrf
+                            
+                            <div class="input-group mb-3">
+                                <label for="image" class="input-group-text fw-bold">Seleccionar imagen:</label>
+                                <input type="file" name="image" id="image" accept="image/*" class="form-control" required>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-upload me-1"></i> Subir Imagen
+                                </button>
+                            </div>
+                            
+                            
+                        </form>
+                    </div>
+                </div>
+                <h5 class="text-primary my-3" style="color: #007bff !important;"><i class="fas fa-tag me-2"></i> 2. Información Principal del Plan</h5>
+                <hr class="mb-4">
+
+                <form method="POST" id="crearPaquetes">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="nombre" class="form-label fw-bold">Imagen cargada</label>
+<div id="resultado" class="mt-2 small text-muted"></div>
+  <input type="text" value="" 
+                    class="form-control" 
+                    style="width:100%;padding:5px;border:1px solid #ccc;border-radius:5px;" id="resulturl" name="resulturl" required>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="nombre" class="form-label fw-bold">Nombre del Paquete</label>
@@ -167,7 +217,6 @@ $metricas_paquetes = [
                                 <option value="" selected disabled>Selecciona un tipo</option>
                                 <option value="fibra antena">Por Fibra optica</option>
                                 <option value="por antena">Por antena</option>
-                             
                             </select>
                         </div>
                     </div>
@@ -186,19 +235,17 @@ $metricas_paquetes = [
                             <small class="form-text text-muted">Define la disponibilidad del plan.</small>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="modal-footer d-flex justify-content-between">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="fas fa-times me-1"></i> Cancelar
-                    </button>
-                    <button type="submit" class="btn btn-primary" id="btnpaquete">
-                        <i class="fas fa-save me-1"></i> Guardar Paquete
-                    </button>
-                </div>
-            </form>
-        </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i> Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary" id="btnpaquete" style="background-color: #007bff; border-color: #007bff;">
+                    <i class="fas fa-save me-1"></i> Guardar Paquete
+                </button>
+            </div>
+            </form> </div>
     </div>
 </div>
 

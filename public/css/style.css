@@ -718,3 +718,53 @@ body {
 .action-btn.delete:hover i {
     color: #dc3545; /* Ícono rojo de peligro */
 }
+
+
+
+
+
+/*Cargar Imagenes---------------------*/
+.profile-picture {
+  opacity: 0.75;
+  height: 100px;
+  width: 100px;
+  position: relative;
+  overflow: hidden;
+
+  /* default image */
+ 
+  
+  background: url("/images/imagedef.png");
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 8px 6px -6px black;
+}
+.file-uploader {
+  /* make it invisible */
+  opacity: 0;
+  /* make it take the full height and width of the parent container */
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  /* make it absolute */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+.upload-icon {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* initial icon state */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #ccc;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #bbb;
+}
+.profile-picture:hover .upload-icon {
+  opacity: 1;
+}

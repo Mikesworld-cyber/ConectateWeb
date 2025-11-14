@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiClienteController;
 use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\GoogleDriveController;
 use App\Http\Controllers\generarreporte;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,7 @@ Route::get('/dashboard/{request}', [ApiClienteController::class, 'getTablaData']
 // 1. Ruta que el formulario USA en la acción
 Route::post('/contratos', [ContratoController::class, 'store'])->name('contratos.store'); // ⬅️ ¡Esta es la ruta POST!
 Route::get('/generar-pdf/{id}', [generarreporte::class, 'showContrato']);
+
+Route::get('/google/auth', [GoogleDriveController::class, 'redirectToGoogle'])->name('google.auth');
+Route::get('/oauth2callback', [GoogleDriveController::class, 'handleCallback']);
+Route::post('/drive/upload', [GoogleDriveController::class, 'upload2'])->name('drive.upload');
